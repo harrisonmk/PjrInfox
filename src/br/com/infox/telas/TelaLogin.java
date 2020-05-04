@@ -28,7 +28,7 @@ public class TelaLogin extends javax.swing.JFrame {
             // digitado nas caixas de textos. O ? é substituido pelo conteudo das variaveis
             
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtUsuario.getText());
+            pst.setString(1, txtUsuario.getText());//obtem o que foi digitado e armazena na variavel pst; 1 por causa que é o primeiro campo
             pst.setString(2, txtSenha.getText());
             //a linha abaixo executa a query
             
@@ -37,19 +37,19 @@ public class TelaLogin extends javax.swing.JFrame {
             //se existir usuario e senha correspondente
             if (rs.next()) {
                 //a linha abaixo obtem o conteudo do campo perfil da tabela tbusuarios
-                String perfil = rs.getString(5);
+                String perfil = rs.getString(6); //6 é o sexto elemento dentro da tabela usuarios do banco de dados
                 // System.out.println(perfil);
                 // a estrutura abaixo faz p tratamento do perfil usuario
                 //administrador
                 if (perfil.equals("admin")) {
                     TelaPrincipal principal = new TelaPrincipal();
-                    principal.setVisible(true);
+                    principal.setVisible(true); //chama a tela principal
                     TelaPrincipal.MenRel.setEnabled(true);
                     TelaPrincipal.MenCadUsu.setEnabled(true);
-                    TelaPrincipal.lblUsuario.setText(rs.getString(2));
+                    TelaPrincipal.lblUsuario.setText(rs.getString(2)); //2 é o segundo elemento "usuario" dentro da tabela usuario
                     TelaPrincipal.lblUsuario.setForeground(Color.red);
-                    this.dispose();
-                    conexao.close();
+                    this.dispose(); //fecha a tela de login a hora que chamar a principal ou outra
+                    conexao.close(); //fecha a conexão com o banco de dados
                 }//usuario
                 else{
                     TelaPrincipal principal = new TelaPrincipal();
